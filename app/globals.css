@@ -9,6 +9,9 @@ body{
 :root {
   --radius: 8px;
 }
+.no-scrollbar {
+  scrollbar-width: none;
+}
 
 @layer utilities {
   .background-light850_dark100 {

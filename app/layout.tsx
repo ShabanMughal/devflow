@@ -43,7 +43,9 @@ export default function RootLayout({
           <Navbar />
           {children}
         </ThemeProvider>
+      <Toaster />
       </body>
+      </SessionProvider>
     </html>
   );
 }
