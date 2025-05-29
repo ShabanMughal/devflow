@@ -26,28 +26,34 @@ export const metadata: Metadata = {
   },
 };
 
-const  RootLayout = async ({ children }: { children: React.ReactNode }) => {
-
-  const session = await auth()
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <SessionProvider session={session}>
-      <body
-        className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <body
+          className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
         >
-          {children}
-        </ThemeProvider>
-      <Toaster />
-         </body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </body>
       </SessionProvider>
     </html>
   );
-}
+};
 
 export default RootLayout;
