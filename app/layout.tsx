@@ -40,6 +40,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <SessionProvider session={session}>
         <body
           className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
+          cz-shortcut-listen="true"
         >
           <ThemeProvider
             attribute="class"
