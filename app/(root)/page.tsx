@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
 import LocalSearch from "@/components/Search/LocalSearch";
+import HomeFilter from "@/components/filters/HomeFilter";
 
 const questions = [
   {
@@ -99,7 +100,7 @@ const Home = async ({searchParams}: SearchParams) => {
       <section className="mt-11">
         <LocalSearch imgSrc="/icons/search.svg" placeholder="Search question..." otherClasses="flex-1" route="/" />
       </section>
-
+<HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
        {filterQuestions.map((question)=>(
         <h1 key={question._id}>{question.title}</h1>
