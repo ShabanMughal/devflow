@@ -39,7 +39,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       </head>
       <SessionProvider session={session}>
         <body
-          className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
+          className={`${inter.className} ${spaceGrotesk.variable} antialiased custom-scrollbar`}
           cz-shortcut-listen="true"
         >
           <ThemeProvider
