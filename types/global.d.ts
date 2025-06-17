@@ -1,7 +1,6 @@
 interface Tag {
   _id: string;
   name: string;
-  compact?: boolean;
 }
 
 interface Author {
@@ -15,6 +14,7 @@ interface Question {
   title: string;
   tags: Tag[];
   author: Author;
+  createdAt: Date;
   upvotes: number;
   answers: number;
   views: number;
