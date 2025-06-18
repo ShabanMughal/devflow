@@ -52,10 +52,7 @@ const questions = [
 
 const test = async () => {
   try {
-    throw new ValidationError({
-      title: ["Required"],
-      tags: ['"JavaScript" is not a valid tag.'],
-    });
+   console.log("Connecting to the database...");
   } catch (error) {
     return handleError(error);
   }
