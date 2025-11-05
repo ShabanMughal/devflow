@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
 import { api } from "@/lib/api";
 import handleError from "@/lib/handlers/error";
+import { auth } from "@/auth";
 
 const questions = [
   {
@@ -63,8 +64,9 @@ interface SearchParams {
 
 const Home = async ({ searchParams }: SearchParams) => {
   const users = await test();
+  const session = await auth();
 
-  console.log(users);
+  console.log("session",session);
 
   const { query = "", filter = "" } = await searchParams;
 
