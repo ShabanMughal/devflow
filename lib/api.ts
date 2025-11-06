@@ -2,18 +2,21 @@ import { IAccount } from "@/database/account.model";
 import { IUser } from "@/database/user.model";
 
 import { fetchHandler } from "./handlers/fetch";
+import ROUTES from "@/constants/routes";
 
-const API_BASE_URL =
-   "http://localhost:3000/api";
+const API_BASE_URL = "http://localhost:3000/api";
 
 export const api = {
-
-  auth :{
-    oAuthSignIn: ({ user, provider, providerAccountId }: SignInWithOAuthParams)=>
-fetchHandler(`${API_BASE_URL}/auth/signin-with-oath`, {
+  auth: {
+    oAuthSignIn: ({
+      user,
+      provider,
+      providerAccountId,
+    }: SignInWithOAuthParams) =>
+      fetchHandler(`${API_BASE_URL}/auth/${ROUTES.SIGN_IN_WITH_OAUTH}`, {
         method: "POST",
         body: JSON.stringify({ user, provider, providerAccountId }),
-      })
+      }),
   },
 
   users: {
