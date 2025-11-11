@@ -13,17 +13,6 @@
 
 ---
 
-## 📋 Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## 🚀 About
 
 DevFlow is a community-driven platform where developers can ask questions, share knowledge, and collaborate. Built with the latest web technologies, it provides a seamless experience for learning and growing together.
