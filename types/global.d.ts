@@ -37,13 +37,7 @@ type ErrorResponse = ActionResponse<undefined> & { success: false };
 type APIErrorResponse = NextResponse<ErrorResponse>;
 type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
 
-interface SignInWithOAuthParams {
-  user: {
-    name: string;
-    username: string;
-    email: string;
-    image: string;
-  };
-  provider: "google" | "github";
-  providerAccountId: string;
+interface RouteParams {
+  params: Promise<Record<string, string>>;
+  searchParams: Promise<Record<string, string>>;
 }
