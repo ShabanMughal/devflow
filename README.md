@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/site-logo.svg" alt="DevFlow Logo" width="200"/>
+  <img src="/public/images/logo-dark.svg" alt="DevFlow Logo" width="200"/>
   
   # DevFlow
   
