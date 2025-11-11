@@ -1,7 +1,7 @@
 <div align="center">
   <img src="/public/images/logo-dark.svg" alt="DevFlow Logo" width="200"/>
   
-  # DevFlow
+  #
   
   A modern developer community platform built with Next.js 15, featuring questions, answers, and collaborative learning.
   
