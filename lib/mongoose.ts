@@ -1,7 +1,9 @@
 import mongoose, { Mongoose } from "mongoose";
-import logger from "./logger";
 
-const MONGODB_URI = process.env.MONGOODB_URL as string;
+import logger from "./logger";
+import "@/database";
+
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 if (!MONGODB_URI) {
   throw new Error("MONGODB_URI is not defined");
@@ -25,7 +27,7 @@ if (!cached) {
 
 const dbConnect = async (): Promise<Mongoose> => {
   if (cached.conn) {
-    logger.info("Using cached MongoDB connection");
+    logger.info("Using existing mongoose connection");
     return cached.conn;
   }
 
