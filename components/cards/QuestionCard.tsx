@@ -12,7 +12,7 @@ interface Props {
 }
 
 const QuestionCard = ({
-  question: { _id, title, tags, author, createdAt, upvotes, answers, views },
+  question: { _id, title, tags, author, createdAt, upvotes, answers, views, content },
 }: Props) => {
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
