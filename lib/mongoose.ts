@@ -1,7 +1,7 @@
 import mongoose, { Mongoose } from "mongoose";
 
 import logger from "./logger";
-// import "@/database";
+import "@/database";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
@@ -35,6 +35,9 @@ const dbConnect = async (): Promise<Mongoose> => {
     cached.promise = mongoose
       .connect(MONGODB_URI, {
         dbName: "devflow",
+        serverSelectionTimeoutMS: 5000, // Timeout after 5s if server selection fails
+        socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+        connectTimeoutMS: 10000, // Give up initial connection after 10s
       })
       .then((result) => {
         logger.info("Connected to MongoDB");

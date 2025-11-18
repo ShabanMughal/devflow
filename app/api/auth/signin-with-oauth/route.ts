@@ -9,8 +9,26 @@ import { ValidationError } from "@/lib/http-errors";
 import dbConnect from "@/lib/mongoose";
 import { SignInWithOAuthSchema } from "@/lib/validations";
 
+// Increase timeout for OAuth sign-in which involves database transactions
+// Vercel Hobby: 10s, Pro: 60s, Enterprise: 300s
+export const maxDuration = 30;
+
 export async function POST(request: Request) {
   const { provider, providerAccountId, user } = await request.json();
+
+  // Validate before connecting to database to fail fast
+  const validatedData = SignInWithOAuthSchema.safeParse({
+    provider,
+    providerAccountId,
+    user,
+  });
+
+  if (!validatedData.success) {
+    return handleError(
+      new ValidationError(validatedData.error.flatten().fieldErrors),
+      "api"
+    ) as APIErrorResponse;
+  }
 
   await dbConnect();
 
@@ -18,15 +36,6 @@ export async function POST(request: Request) {
   session.startTransaction();
 
   try {
-    const validatedData = SignInWithOAuthSchema.safeParse({
-      provider,
-      providerAccountId,
-      user,
-    });
-
-    if (!validatedData.success)
-      throw new ValidationError(validatedData.error.flatten().fieldErrors);
-
     const { name, username, email, image } = user;
 
     const slugifiedUsername = slugify(username, {
@@ -35,6 +44,7 @@ export async function POST(request: Request) {
       trim: true,
     });
 
+    // Find or create user - optimized to reduce database round trips
     let existingUser = await User.findOne({ email }).session(session);
 
     if (!existingUser) {
@@ -43,19 +53,20 @@ export async function POST(request: Request) {
         { session }
       );
     } else {
-      const updatedData: { name?: string; image?: string } = {};
+      // Only update if data has changed
+      const needsUpdate =
+        existingUser.name !== name || existingUser.image !== image;
 
-      if (existingUser.name !== name) updatedData.name = name;
-      if (existingUser.image !== image) updatedData.image = image;
-
-      if (Object.keys(updatedData).length > 0) {
+      if (needsUpdate) {
         await User.updateOne(
           { _id: existingUser._id },
-          { $set: updatedData }
-        ).session(session);
+          { $set: { name, image } },
+          { session }
+        );
       }
     }
 
+    // Check if account exists, create if not
     const existingAccount = await Account.findOne({
       userId: existingUser._id,
       provider,
@@ -84,6 +95,6 @@ export async function POST(request: Request) {
     await session.abortTransaction();
     return handleError(error, "api") as APIErrorResponse;
   } finally {
-    session.endSession();
+    await session.endSession();
   }
 }
