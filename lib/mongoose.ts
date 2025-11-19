@@ -9,26 +9,6 @@ if (!MONGODB_URI) {
   throw new Error("MONGODB_URI is not defined");
 }
 
-/**
- * IMPORTANT: MongoDB Atlas IP Whitelisting
- * 
- * For serverless deployments (like Vercel), you MUST whitelist 0.0.0.0/0 in MongoDB Atlas.
- * 
- * This is safe because:
- * - Users never connect directly to MongoDB (they go through your API)
- * - Only your serverless functions connect to MongoDB
- * - Users can't access MongoDB without your connection string and credentials
- * 
- * The IP whitelist controls SERVER connections, not user connections.
- * 
- * To configure:
- * 1. Go to MongoDB Atlas → Network Access
- * 2. Click "Add IP Address"
- * 3. Enter: 0.0.0.0/0
- * 4. Add comment: "Vercel Serverless Functions"
- * 5. Click Confirm
- */
-
 interface MongooseCache {
   conn: Mongoose | null;
   promise: Promise<Mongoose> | null;
